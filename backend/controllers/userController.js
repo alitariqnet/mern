@@ -19,8 +19,8 @@ const getUser = async (req, res) => {
 
 const createUser =  async (req,res) => {
     const {name, age, email, username, password} = req.body;
-
-    const user = await User.create(name,age,email,username,password);
+    console.log()
+    const user = await User.save(name,age,email,username,password);
     try {
         if (user) {
             res.status(200).json(user);
@@ -31,6 +31,10 @@ const createUser =  async (req,res) => {
 }
 
 const welcome = (req,res) => {
+    // const Cat = mongoose.model('Cat', { name: String });
+
+    const user = new Cat({ name: 'Ali' });
+    user.save().then(() => console.log('meow'));
     return res.status(200).json({message: "welcome to user service"});
 }
 
