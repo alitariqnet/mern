@@ -18,11 +18,13 @@ const getUser = async (req, res) => {
 }
 
 const createUser =  async (req,res) => {
-    const {name, age, email, username, password} = req.body;
-    console.log()
-    const user = await User.save(name,age,email,username,password);
+    const {name, email, age, username, password} = req.body;
+
+    const user = new User({name, email, age, username, password});
+    const saved = await user.save();
+
     try {
-        if (user) {
+        if (saved) {
             res.status(200).json(user);
         }
     }catch(error){
@@ -31,10 +33,7 @@ const createUser =  async (req,res) => {
 }
 
 const welcome = (req,res) => {
-    // const Cat = mongoose.model('Cat', { name: String });
 
-    const user = new Cat({ name: 'Ali' });
-    user.save().then(() => console.log('meow'));
     return res.status(200).json({message: "welcome to user service"});
 }
 
